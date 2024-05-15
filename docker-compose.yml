@@ -1,0 +1,21 @@
+# Create empty ./data folder for new instances
+# Place my.cnf in ./conf to set variables
+
+services:
+  mysql:
+    image: mysql/mysql-server:${TAG}
+    container_name: mysql-${NAME}
+#Uncomment to check Environment Variables
+#    command: printenv
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: openmrs
+# Uncomment these lines to create a non-root user
+#      MYSQL_USER: test
+#      MYSQL_PASSWORD: Password123
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf:/etc/mysql
+    ports:
+      - ${PORT}:3306
